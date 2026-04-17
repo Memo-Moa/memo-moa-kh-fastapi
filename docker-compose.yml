@@ -1,0 +1,8 @@
+services:
+  memo-moa:
+    build: .
+    image: memo-moa-kh-fastapi:latest
+    container_name: memo-moa-kh-fastapi
+    restart: unless-stopped
+    ports:
+      - "8000:8000"

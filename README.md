@@ -48,6 +48,39 @@ uv run uvicorn main:app --host 0.0.0.0 --port 8000
 - 윈도우: 60초
 - 제한 초과 시 `429 Too Many Requests` 응답, `Retry-After` 헤더 포함
 
+## Docker
+
+### 로컬 빌드 및 실행
+
+```bash
+docker build -t memo-moa-kh-fastapi .
+docker run -p 8000:8000 memo-moa-kh-fastapi
+```
+
+### docker-compose
+
+```bash
+docker compose up -d
+```
+
+### Portainer 배포
+
+**방법 1 — Stack (권장)**
+
+1. Portainer → **Stacks** → **Add stack**
+2. **Repository** 탭 선택 후 GitHub 레포 URL 입력 (또는 `docker-compose.yml` 내용을 Web editor에 직접 붙여넣기)
+3. **Deploy the stack** 클릭
+
+**방법 2 — 이미지 빌드 후 배포**
+
+```bash
+# 로컬 또는 CI에서 이미지 빌드 후 레지스트리에 push
+docker build -t <registry>/memo-moa-kh-fastapi:latest .
+docker push <registry>/memo-moa-kh-fastapi:latest
+```
+
+이후 Portainer → **Containers** → **Add container** 에서 이미지 지정, 포트 `8000:8000` 매핑 후 배포합니다.
+
 ## 기술 스택
 
 - **FastAPI** - 웹 프레임워크
