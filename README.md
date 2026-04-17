@@ -50,17 +50,28 @@ uv run uvicorn main:app --host 0.0.0.0 --port 8000
 
 ## Docker
 
+기본 포트는 `8000`이며, `PORT` 환경변수로 변경할 수 있습니다.
+
 ### 로컬 빌드 및 실행
 
 ```bash
 docker build -t memo-moa-kh-fastapi .
+
+# 기본 포트(8000)
 docker run -p 8000:8000 memo-moa-kh-fastapi
+
+# 포트 변경 예시 (9000)
+docker run -e PORT=9000 -p 9000:9000 memo-moa-kh-fastapi
 ```
 
 ### docker-compose
 
 ```bash
+# 기본 포트(8000)
 docker compose up -d
+
+# 포트 변경 예시 (9000)
+PORT=9000 docker compose up -d
 ```
 
 ### Portainer 배포
@@ -69,7 +80,8 @@ docker compose up -d
 
 1. Portainer → **Stacks** → **Add stack**
 2. **Repository** 탭 선택 후 GitHub 레포 URL 입력 (또는 `docker-compose.yml` 내용을 Web editor에 직접 붙여넣기)
-3. **Deploy the stack** 클릭
+3. **Environment variables** 섹션에서 `PORT` 값 설정 (기본값: `8000`)
+4. **Deploy the stack** 클릭
 
 **방법 2 — 이미지 빌드 후 배포**
 
@@ -79,7 +91,7 @@ docker build -t <registry>/memo-moa-kh-fastapi:latest .
 docker push <registry>/memo-moa-kh-fastapi:latest
 ```
 
-이후 Portainer → **Containers** → **Add container** 에서 이미지 지정, 포트 `8000:8000` 매핑 후 배포합니다.
+이후 Portainer → **Containers** → **Add container** 에서 이미지 지정, **Env** 탭에 `PORT=9000` 추가, 포트 매핑 `9000:9000` 설정 후 배포합니다.
 
 ## 기술 스택
 
